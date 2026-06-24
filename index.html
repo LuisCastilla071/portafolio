@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Diseño Digital</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        surface: '#fafafa',
+                        accent: '#6C63FF',
+                        'accent-light': '#8B83FF',
+                        'accent-dark': '#4F46E5'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f3ff;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Gradiente de fondo suave con acentos */
+        .gradient-bg {
+            background: 
+                radial-gradient(ellipse at 0% 0%, rgba(108, 99, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(108, 99, 255, 0.05) 0%, transparent 50%),
+                #f5f3ff;
+        }
+
+        /* Efecto de vidrio con más contraste */
+        .glass-modern {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(108, 99, 255, 0.08);
+        }
+
+        /* Cards con alto contraste y sombras fuertes */
+        .project-card-modern {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid rgba(108, 99, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6C63FF, #8B83FF, #6C63FF);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card-modern:hover::before {
+            opacity: 1;
+        }
+
+        .project-card-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.15);
+            border-color: rgba(108, 99, 255, 0.2);
+        }
+
+        /* Botón primario con contraste fuerte */
+        .btn-primary {
+            background: linear-gradient(135deg, #6C63FF, #4F46E5);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0a0a0a;
+            border: 2px solid rgba(108, 99, 255, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+
+        .btn-secondary:hover {
+            border-color: #6C63FF;
+            background: rgba(108, 99, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.1);
+        }
+
+        /* Badge con contraste */
+        .badge-modern {
+            background: rgba(108, 99, 255, 0.1);
+            color: #4F46E5;
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Iconos con contraste */
+        .icon-modern {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: rgba(108, 99, 255, 0.08);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            color: #6C63FF;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card-modern:hover .icon-modern {
+            background: linear-gradient(135deg, #6C63FF, #4F46E5);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Grid decorativo */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(108, 99, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108, 99, 255, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ede9fe;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #6C63FF;
+            border-radius: 100px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4F46E5;
+        }
+
+        /* Gradiente para títulos */
+        .gradient-text {
+            background: linear-gradient(135deg, #6C63FF, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Separadores con estilo */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.2), transparent);
+        }
+
+        /* Efectos de contraste en texto */
+        .text-highlight {
+            color: #4F46E5;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body class="gradient-bg">
+    <!-- Navbar con contraste -->
+    <nav class="fixed top-0 left-0 right-0 z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-modern rounded-2xl px-6 py-3 flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-accent/25">
+                        LC
+                    </div>
+                    <span class="font-display font-bold text-lg text-dark tracking-tight">
+                        Portafolio<span class="text-accent">.</span>
+                    </span>
+                </a>
+
+                <div class="flex items-center gap-4">
+                    <a href="#proyectos" class="text-sm font-semibold text-dark/60 hover:text-accent transition-colors hidden sm:block">
+                        Proyectos
+                    </a>
+                    <a href="https://wa.me/50586538380" target="_blank" rel="noopener" 
+                       class="btn-primary px-5 py-2.5 rounded-xl text-sm flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        Contacto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
+        <!-- Hero Section -->
+        <header class="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+            <section>
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="badge-modern">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        Disponible para proyectos
+                    </div>
+                </div>
+
+                <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-dark">
+                    Transformo ideas en
+                    <span class="gradient-text">
+                        experiencias digitales
+                    </span>
+                </h1>
+
+                <p class="mt-6 text-lg sm:text-xl text-dark/60 leading-relaxed max-w-lg font-medium">
+                    Diseño y desarrollo plataformas modernas con enfoque en usabilidad, 
+                    conversión y una experiencia de usuario excepcional.
+                </p>
+
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="#proyectos" class="btn-primary px-8 py-4 rounded-2xl text-sm flex items-center gap-2">
+                        Ver proyectos
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                    <a href="https://wa.me/50586538380" target="_blank" rel="noopener" 
+                       class="btn-secondary px-8 py-4 rounded-2xl text-sm flex items-center gap-2">
+                        <i class="fa-regular fa-comment"></i>
+                        Conversemos
+                    </a>
+                </div>
+
+                <!-- Stats con contraste -->
+                <div class="mt-12 flex gap-8 border-t border-accent/10 pt-8">
+                    <div>
+                        <p class="font-display text-3xl font-bold text-dark">5+</p>
+                        <p class="text-xs font-semibold text-dark/40 uppercase tracking-wider">Proyectos</p>
+                    </div>
+                    <div>
+                        <p class="font-display text-3xl font-bold text-dark">100%</p>
+                        <p class="text-xs font-semibold text-dark/40 uppercase tracking-wider">Responsive</p>
+                    </div>
+                    <div>
+                        <p class="font-display text-3xl font-bold text-dark">4.9</p>
+                        <p class="text-xs font-semibold text-dark/40 uppercase tracking-wider">Satisfacción</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid decorativo -->
+            <div class="relative">
+                <div class="grid-pattern absolute inset-0 rounded-3xl"></div>
+                <div class="relative glass-modern rounded-3xl p-8">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm hover:shadow-md transition-all">
+                            <div class="icon-modern mb-4">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                            </div>
+                            <p class="font-display font-bold text-dark">Mobile First</p>
+                            <p class="text-sm text-dark/50 mt-1 font-medium">Diseñado para todos</p>
+                        </div>
+                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm transform translate-y-4 hover:shadow-md transition-all">
+                            <div class="icon-modern mb-4">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <p class="font-display font-bold text-dark">Rápido</p>
+                            <p class="text-sm text-dark/50 mt-1 font-medium">Optimizado</p>
+                        </div>
+                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm hover:shadow-md transition-all">
+                            <div class="icon-modern mb-4">
+                                <i class="fa-solid fa-palette"></i>
+                            </div>
+                            <p class="font-display font-bold text-dark">Moderno</p>
+                            <p class="text-sm text-dark/50 mt-1 font-medium">Diseño actual</p>
+                        </div>
+                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm transform -translate-y-4 hover:shadow-md transition-all">
+                            <div class="icon-modern mb-4">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <p class="font-display font-bold text-dark">Enfoque UX</p>
+                            <p class="text-sm text-dark/50 mt-1 font-medium">Centrado en ti</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Proyectos -->
+        <section id="proyectos" class="mt-24">
+            <div class="divider mb-12"></div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
+                <div>
+                    <span class="badge-modern">Portafolio</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-dark mt-4">
+                        Proyectos destacados
+                    </h2>
+                </div>
+                <p class="text-dark/50 max-w-md text-sm leading-relaxed font-medium">
+                    Cada proyecto refleja mi compromiso con la calidad y la atención al detalle.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Proyecto 1 -->
+                <article class="project-card-modern p-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="icon-modern">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <span class="text-xs font-bold text-dark/30 uppercase tracking-wider">Restaurante</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-dark">El Patio Chontales</h3>
+                    <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
+                        Landing page para restaurante con filtros interactivos y flujo directo para reservas.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
+                        <a href="https://luiscastilla071.github.io/landing_elpatio/" target="_blank" rel="noopener" 
+                           class="text-accent hover:text-accent-dark transition-colors font-bold">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Proyecto 2 -->
+                <article class="project-card-modern p-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="icon-modern">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </div>
+                        <span class="text-xs font-bold text-dark/30 uppercase tracking-wider">Fitness</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-dark">PowerGym</h3>
+                    <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
+                        Plataforma de conversión para centro fitness con enfoque en membresías y captación.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
+                        <a href="https://luiscastilla071.github.io/landing_powergym/" target="_blank" rel="noopener" 
+                           class="text-accent hover:text-accent-dark transition-colors font-bold">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Proyecto 3 -->
+                <article class="project-card-modern p-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="icon-modern">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <span class="text-xs font-bold text-dark/30 uppercase tracking-wider">Comida</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-dark">El Chontaleño</h3>
+                    <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
+                        Sitio responsivo para asados con estructura clara para menú móvil y contacto.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
+                        <a href="https://luiscastilla071.github.io/landing_elchontale-o/" target="_blank" rel="noopener" 
+                           class="text-accent hover:text-accent-dark transition-colors font-bold">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Proyecto 4 -->
+                <article class="project-card-modern p-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="icon-modern">
+                            <i class="fa-solid fa-fire-burner"></i>
+                        </div>
+                        <span class="text-xs font-bold text-dark/30 uppercase tracking-wider">Parrilla</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-dark">El Novillo</h3>
+                    <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
+                        Landing page para cortes premium con acciones visibles para pedidos a domicilio.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
+                        <a href="https://luiscastilla071.github.io/landing_elnovillo/" target="_blank" rel="noopener" 
+                           class="text-accent hover:text-accent-dark transition-colors font-bold">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Proyecto 5 -->
+                <article class="project-card-modern p-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="icon-modern">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <span class="text-xs font-bold text-dark/30 uppercase tracking-wider">Tecnología</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-dark">Celmania</h3>
+                    <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
+                        Catálogo web para tienda de smartphones con presentación limpia y cotizaciones.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
+                        <a href="https://luiscastilla071.github.io/landing_celmania/" target="_blank" rel="noopener" 
+                           class="text-accent hover:text-accent-dark transition-colors font-bold">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer con contraste -->
+        <footer class="mt-24 rounded-3xl bg-white p-10 sm:p-12 text-dark relative overflow-hidden shadow-xl border border-accent/5">
+            <!-- Efectos decorativos suaves -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent/3 rounded-full blur-3xl"></div>
+            
+            <div class="relative flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+                <div>
+                    <span class="badge-modern">
+                        <i class="fa-regular fa-handshake"></i>
+                        Trabajemos juntos
+                    </span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold mt-4 text-dark">
+                        ¿Listo para crear algo increíble?
+                    </h2>
+                    <p class="text-dark/50 mt-2 max-w-md font-medium">
+                        Conversemos sobre tu próximo proyecto y cómo puedo ayudarte.
+                    </p>
+                </div>
+                
+                <a href="https://wa.me/50586538380" target="_blank" rel="noopener" 
+                   class="btn-primary px-8 py-4 rounded-2xl text-sm flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    Iniciar conversación
+                </a>
+            </div>
+            
+            <div class="relative mt-10 pt-8 border-t border-accent/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-dark/30 font-medium">
+                <p>© 2024 Portafolio. Diseñado con <i class="fa-solid fa-heart text-accent"></i></p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-accent transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-accent transition-colors">GitHub</a>
+                    <a href="#" class="hover:text-accent transition-colors">Twitter</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
