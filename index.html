@@ -42,9 +42,6 @@
             color: #0a0a0a;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         /* === FONDO CON GRADIENTE SUAVE === */
@@ -53,13 +50,12 @@
                 radial-gradient(ellipse at 0% 0%, rgba(108, 99, 255, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 100% 100%, rgba(108, 99, 255, 0.05) 0%, transparent 50%),
                 #f5f3ff;
-            width: 100%;
+            min-height: 100vh;
         }
 
         /* === CONTENEDOR CENTRAL === */
-        .container-center {
+        .container {
             max-width: 1280px;
-            width: 100%;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
@@ -78,7 +74,7 @@
             justify-content: space-between;
         }
 
-        /* === BOTÓN PRIMARIO === */
+        /* === BOTONES === */
         .btn-primary {
             background: linear-gradient(135deg, #6C63FF, #4F46E5);
             color: white;
@@ -92,6 +88,7 @@
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
+            text-decoration: none;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
@@ -110,6 +107,7 @@
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
+            text-decoration: none;
         }
         .btn-secondary:hover {
             border-color: #6C63FF;
@@ -146,6 +144,7 @@
             color: #6C63FF;
             font-size: 20px;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         /* === TARJETAS DE PROYECTO === */
@@ -158,6 +157,9 @@
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .project-card-modern::before {
             content: '';
@@ -183,6 +185,14 @@
             color: white;
             transform: scale(1.05);
             box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+        }
+        .project-card-modern .card-footer {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(108, 99, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         /* === GRID DECORATIVO === */
@@ -223,9 +233,23 @@
             background: #4F46E5;
         }
 
+        /* === FEATURE CARD (Grid decorativo) === */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(108, 99, 255, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
         /* === RESPONSIVE AJUSTES === */
         @media (max-width: 640px) {
-            .container-center {
+            .container {
                 padding: 0 1rem;
             }
             .glass-modern {
@@ -233,6 +257,15 @@
             }
             .project-card-modern {
                 padding: 1rem;
+            }
+            .feature-card {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .feature-card.transform {
+                transform: none !important;
             }
         }
     </style>
@@ -242,7 +275,7 @@
 
     <!-- ========== NAVBAR ========== -->
     <nav class="fixed top-0 left-0 right-0 z-50 py-4 px-6">
-        <div class="container-center">
+        <div class="container">
             <div class="glass-modern">
                 <a href="#" class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-accent/25">
@@ -266,13 +299,20 @@
     </nav>
 
     <!-- ========== MAIN ========== -->
-    <main class="container-center pt-32 pb-20">
+    <main class="container pt-32 pb-20">
 
         <!-- ===== HERO ===== -->
-        <header class="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+        <header class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
 
             <!-- Columna izquierda -->
             <section>
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="badge-modern">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        Disponible para proyectos
+                    </div>
+                </div>
+
                 <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-dark">
                     Transformo ideas en
                     <span class="gradient-text">experiencias digitales</span>
@@ -313,22 +353,22 @@
                 <div class="grid-pattern absolute inset-0 rounded-3xl"></div>
                 <div class="relative glass-modern rounded-3xl p-8">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm hover:shadow-md transition-all">
+                        <div class="feature-card">
                             <div class="icon-modern mb-4"><i class="fa-solid fa-mobile-screen"></i></div>
                             <p class="font-display font-bold text-dark">Mobile First</p>
                             <p class="text-sm text-dark/50 mt-1 font-medium">Diseñado para todos</p>
                         </div>
-                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm transform translate-y-4 hover:shadow-md transition-all">
+                        <div class="feature-card lg:translate-y-4">
                             <div class="icon-modern mb-4"><i class="fa-solid fa-bolt"></i></div>
                             <p class="font-display font-bold text-dark">Rápido</p>
                             <p class="text-sm text-dark/50 mt-1 font-medium">Optimizado</p>
                         </div>
-                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm hover:shadow-md transition-all">
+                        <div class="feature-card">
                             <div class="icon-modern mb-4"><i class="fa-solid fa-palette"></i></div>
                             <p class="font-display font-bold text-dark">Moderno</p>
                             <p class="text-sm text-dark/50 mt-1 font-medium">Diseño actual</p>
                         </div>
-                        <div class="bg-white/80 rounded-2xl p-6 border border-accent/5 shadow-sm transform -translate-y-4 hover:shadow-md transition-all">
+                        <div class="feature-card lg:-translate-y-4">
                             <div class="icon-modern mb-4"><i class="fa-solid fa-heart"></i></div>
                             <p class="font-display font-bold text-dark">Enfoque UX</p>
                             <p class="text-sm text-dark/50 mt-1 font-medium">Centrado en ti</p>
@@ -367,7 +407,7 @@
                     <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
                         Landing page para restaurante con filtros interactivos y flujo directo para reservas.
                     </p>
-                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                    <div class="card-footer">
                         <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
                         <a href="https://luiscastilla071.github.io/landing_elpatio/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark transition-colors font-bold">
                             <i class="fa-solid fa-arrow-right"></i>
@@ -385,7 +425,7 @@
                     <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
                         Plataforma de conversión para centro fitness con enfoque en membresías y captación.
                     </p>
-                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                    <div class="card-footer">
                         <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
                         <a href="https://luiscastilla071.github.io/landing_powergym/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark transition-colors font-bold">
                             <i class="fa-solid fa-arrow-right"></i>
@@ -403,7 +443,7 @@
                     <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
                         Sitio responsivo para asados con estructura clara para menú móvil y contacto.
                     </p>
-                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                    <div class="card-footer">
                         <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
                         <a href="https://luiscastilla071.github.io/landing_elchontale-o/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark transition-colors font-bold">
                             <i class="fa-solid fa-arrow-right"></i>
@@ -421,7 +461,7 @@
                     <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
                         Landing page para cortes premium con acciones visibles para pedidos a domicilio.
                     </p>
-                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                    <div class="card-footer">
                         <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
                         <a href="https://luiscastilla071.github.io/landing_elnovillo/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark transition-colors font-bold">
                             <i class="fa-solid fa-arrow-right"></i>
@@ -439,7 +479,7 @@
                     <p class="mt-3 text-sm text-dark/60 leading-relaxed font-medium">
                         Catálogo web para tienda de smartphones con presentación limpia y cotizaciones.
                     </p>
-                    <div class="mt-6 pt-6 border-t border-accent/5 flex items-center justify-between">
+                    <div class="card-footer">
                         <span class="text-xs font-bold text-dark/30">Ver proyecto →</span>
                         <a href="https://luiscastilla071.github.io/landing_celmania/" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark transition-colors font-bold">
                             <i class="fa-solid fa-arrow-right"></i>
